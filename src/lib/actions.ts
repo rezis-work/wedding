@@ -1,13 +1,25 @@
 "use server";
 
-import { supabase } from "./supabase";
+import { createClient } from "@supabase/supabase-js";
+
+// Create a server-side Supabase client for database operations
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error("Missing Supabase environment variables");
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
+}
+
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export interface RSVPFormData {
   firstname: string;
   lastname: string;
-  is_coming: boolean;
+  are_you_coming: boolean;
 }
 
 export async function submitRSVP(formData: RSVPFormData) {
@@ -21,13 +33,14 @@ export async function submitRSVP(formData: RSVPFormData) {
     }
 
     // Insert into database
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from("weeding-guests")
       .insert([
         {
           firstname: formData.firstname.trim(),
           lastname: formData.lastname.trim(),
-          is_coming: formData.is_coming,
+          are_you_coming: formData.are_you_coming,
         },
       ])
       .select();
@@ -58,6 +71,7 @@ export async function submitRSVP(formData: RSVPFormData) {
 
 export async function getGuests() {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from("weeding-guests")
       .select("*")

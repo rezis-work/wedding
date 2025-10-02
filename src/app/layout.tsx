@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding RSVP",
-  description: "RSVP for our wedding celebration",
+  title: "ნუკი & ლევანის ქორწილი - RSVP",
+  description: "RSVP ნუკი და ლევანის ქორწილზე - 23 ოქტომბერი, 2024",
+  icons: {
+    icon: "/rings.png",
+  },
 };
 
 export default function RootLayout({

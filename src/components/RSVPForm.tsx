@@ -7,7 +7,7 @@ export default function RSVPForm() {
   const [formData, setFormData] = useState<RSVPFormData>({
     firstname: "",
     lastname: "",
-    is_coming: true,
+    are_you_coming: true,
   });
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -25,30 +25,30 @@ export default function RSVPForm() {
       if (result.success) {
         setMessage({
           type: "success",
-          text: "RSVP submitted successfully! Thank you for responding.",
+          text: "RSVP წარმატებით გაიგზავნა! მადლობა თქვენი პასუხისთვის.",
         });
-        setFormData({ firstname: "", lastname: "", is_coming: true });
+        setFormData({ firstname: "", lastname: "", are_you_coming: true });
       } else {
         setMessage({
           type: "error",
-          text: result.error || "Failed to submit RSVP",
+          text: result.error || "RSVP-ის გაგზავნა ვერ მოხერხდა",
         });
       }
     });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        Wedding RSVP
+    <div className="max-w-md mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-rose-200">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
+        ქორწილის RSVP
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,7 +57,7 @@ export default function RSVPForm() {
             htmlFor="firstname"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            First Name *
+            სახელი *
           </label>
           <input
             type="text"
@@ -67,8 +67,8 @@ export default function RSVPForm() {
             onChange={handleInputChange}
             required
             disabled={isPending}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="Enter your first name"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-900 placeholder-gray-500"
+            placeholder="შეიყვანეთ თქვენი სახელი"
           />
         </div>
 
@@ -77,7 +77,7 @@ export default function RSVPForm() {
             htmlFor="lastname"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Last Name *
+            გვარი *
           </label>
           <input
             type="text"
@@ -87,27 +87,58 @@ export default function RSVPForm() {
             onChange={handleInputChange}
             required
             disabled={isPending}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="Enter your last name"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-900 placeholder-gray-500"
+            placeholder="შეიყვანეთ თქვენი გვარი"
           />
         </div>
 
-        <div className="flex items-center space-x-3">
-          <input
-            type="checkbox"
-            id="is_coming"
-            name="is_coming"
-            checked={formData.is_coming}
-            onChange={handleInputChange}
-            disabled={isPending}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded disabled:cursor-not-allowed"
-          />
+        <div>
           <label
-            htmlFor="is_coming"
-            className="text-sm font-medium text-gray-700"
+            htmlFor="are_you_coming"
+            className="block text-sm font-medium text-gray-700 mb-2"
           >
-            I will be attending the wedding
+            მოვალ ქორწილში? *
           </label>
+          <div className="flex space-x-6">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                name="are_you_coming"
+                value="true"
+                checked={formData.are_you_coming === true}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    are_you_coming: e.target.value === "true",
+                  }))
+                }
+                disabled={isPending}
+                className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300 disabled:cursor-not-allowed"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                კი, მოვალ
+              </span>
+            </label>
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                name="are_you_coming"
+                value="false"
+                checked={formData.are_you_coming === false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    are_you_coming: e.target.value === "true",
+                  }))
+                }
+                disabled={isPending}
+                className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300 disabled:cursor-not-allowed"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                არა, ვერ მოვალ
+              </span>
+            </label>
+          </div>
         </div>
 
         <button
@@ -115,9 +146,9 @@ export default function RSVPForm() {
           disabled={
             isPending || !formData.firstname.trim() || !formData.lastname.trim()
           }
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="w-full bg-gradient-to-r from-rose-600 to-purple-600 text-white py-3 px-6 rounded-xl hover:from-rose-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
         >
-          {isPending ? "Submitting..." : "Submit RSVP"}
+          {isPending ? "გაიგზავნება..." : "RSVP გაგზავნა"}
         </button>
       </form>
 

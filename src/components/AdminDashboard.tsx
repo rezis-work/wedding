@@ -48,21 +48,23 @@ export default function AdminDashboard() {
 
     // Filter by attendance
     if (filterAttending === "attending") {
-      filtered = filtered.filter((guest) => guest.is_coming);
+      filtered = filtered.filter((guest) => guest.are_you_coming);
     } else if (filterAttending === "not-attending") {
-      filtered = filtered.filter((guest) => !guest.is_coming);
+      filtered = filtered.filter((guest) => !guest.are_you_coming);
     }
 
     setFilteredGuests(filtered);
   };
 
-  const attendingCount = guests.filter((guest) => guest.is_coming).length;
-  const notAttendingCount = guests.filter((guest) => !guest.is_coming).length;
+  const attendingCount = guests.filter((guest) => guest.are_you_coming).length;
+  const notAttendingCount = guests.filter(
+    (guest) => !guest.are_you_coming
+  ).length;
 
   if (loading) {
     return (
       <div className="flex justify-center items-center py-12">
-        <div className="text-lg text-gray-600">Loading guests...</div>
+        <div className="text-lg text-gray-600">სტუმრების ჩატვირთვა...</div>
       </div>
     );
   }
@@ -75,7 +77,7 @@ export default function AdminDashboard() {
           onClick={loadGuests}
           className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
         >
-          Try again
+          კვლავ სცადეთ
         </button>
       </div>
     );
@@ -96,7 +98,7 @@ export default function AdminDashboard() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Total Guests
+                    სულ სტუმრები
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {guests.length}
@@ -118,7 +120,7 @@ export default function AdminDashboard() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Attending
+                    მოვიდა
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {attendingCount}
@@ -140,7 +142,7 @@ export default function AdminDashboard() {
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Not Attending
+                    არ მოვიდა
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {notAttendingCount}
@@ -160,15 +162,15 @@ export default function AdminDashboard() {
               htmlFor="search"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Search by name
+              ძებნა სახელით
             </label>
             <input
               type="text"
               id="search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search first name or last name..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="ძებნა სახელით ან გვარით..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent text-gray-900 placeholder-gray-500"
             />
           </div>
 
@@ -177,7 +179,7 @@ export default function AdminDashboard() {
               htmlFor="filter"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Filter by attendance
+              ფილტრი დასწრების მიხედვით
             </label>
             <select
               id="filter"
@@ -189,9 +191,9 @@ export default function AdminDashboard() {
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="all">All guests</option>
-              <option value="attending">Attending</option>
-              <option value="not-attending">Not attending</option>
+              <option value="all">ყველა სტუმარი</option>
+              <option value="attending">მოვიდა</option>
+              <option value="not-attending">არ მოვიდა</option>
             </select>
           </div>
         </div>
@@ -201,15 +203,15 @@ export default function AdminDashboard() {
       <div className="bg-white shadow overflow-hidden sm:rounded-md">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
-            Guest List ({filteredGuests.length} guests)
+            სტუმრების სია ({filteredGuests.length} სტუმარი)
           </h3>
         </div>
 
         {filteredGuests.length === 0 ? (
           <div className="px-4 py-8 text-center text-gray-500">
             {guests.length === 0
-              ? "No guests have RSVPed yet."
-              : "No guests match your search criteria."}
+              ? "ჯერ არცერთმა სტუმარმა არ გააგზავნა RSVP."
+              : "არცერთი სტუმარი არ ემთხვევა თქვენს ძებნის კრიტერიუმებს."}
           </div>
         ) : (
           <ul className="divide-y divide-gray-200">
@@ -221,7 +223,7 @@ export default function AdminDashboard() {
                       <div className="flex-shrink-0">
                         <div
                           className={`w-3 h-3 rounded-full ${
-                            guest.is_coming ? "bg-green-400" : "bg-red-400"
+                            guest.are_you_coming ? "bg-green-400" : "bg-red-400"
                           }`}
                         />
                       </div>
@@ -230,7 +232,7 @@ export default function AdminDashboard() {
                           {guest.firstname} {guest.lastname}
                         </div>
                         <div className="text-sm text-gray-500">
-                          RSVPed on{" "}
+                          RSVP გაიგზავნა{" "}
                           {new Date(guest.created_at).toLocaleDateString()}
                         </div>
                       </div>
@@ -238,12 +240,12 @@ export default function AdminDashboard() {
                     <div className="flex items-center">
                       <span
                         className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          guest.is_coming
+                          guest.are_you_coming
                             ? "bg-green-100 text-green-800"
                             : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {guest.is_coming ? "Attending" : "Not Attending"}
+                        {guest.are_you_coming ? "მოვიდა" : "არ მოვიდა"}
                       </span>
                     </div>
                   </div>
@@ -260,7 +262,7 @@ export default function AdminDashboard() {
           onClick={loadGuests}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          Refresh Data
+          მონაცემების განახლება
         </button>
       </div>
     </div>

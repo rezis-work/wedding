@@ -35,12 +35,11 @@ npm install
 
 ```sql
 CREATE TABLE "weeding-guests" (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   firstname TEXT NOT NULL,
   lastname TEXT NOT NULL,
-  is_coming BOOLEAN NOT NULL DEFAULT true,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  are_you_coming BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 ```
 
@@ -53,6 +52,12 @@ Create a `.env.local` file in the root directory:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Admin Configuration (optional - defaults to admin@wedding.com if not set)
+ADMIN_EMAIL=your_admin_email@example.com
+
+# JWT Secret for authentication (generate a secure random string)
+JWT_SECRET_KEY=your_super_secure_jwt_secret_key_here
 ```
 
 Replace the placeholder values with your actual Supabase credentials.
@@ -101,11 +106,59 @@ Open [http://localhost:3000](http://localhost:3000) to see the RSVP form.
 ### Admin Dashboard
 
 - Visit `/admin/login` to access the admin area
-- Use the demo password: `admin123`
+- **Admin Credentials:**
+  - Email: `admin@wedding.com`
+  - Password: `wedding2024`
 - View all guest responses with statistics
 - Filter by attendance status
 - Search by name
 - Refresh data to see new submissions
+- Secure logout functionality
+
+### Setting up Supabase Authentication
+
+1. **Create Admin User in Supabase:**
+
+   - Go to your Supabase dashboard
+   - Navigate to **Authentication** > **Users**
+   - Click **"Add user"**
+   - Create a user with:
+     - Email: `admin@wedding.com`
+     - Password: `wedding2024`
+     - Confirm the user
+
+2. **Alternative: Use SQL to create admin user:**
+   ```sql
+   INSERT INTO auth.users (
+     instance_id,
+     id,
+     aud,
+     role,
+     email,
+     encrypted_password,
+     email_confirmed_at,
+     created_at,
+     updated_at,
+     confirmation_token,
+     email_change,
+     email_change_token_new,
+     recovery_token
+   ) VALUES (
+     '00000000-0000-0000-0000-000000000000',
+     gen_random_uuid(),
+     'authenticated',
+     'authenticated',
+     'admin@wedding.com',
+     crypt('wedding2024', gen_salt('bf')),
+     NOW(),
+     NOW(),
+     NOW(),
+     '',
+     '',
+     '',
+     ''
+   );
+   ```
 
 ## Project Structure
 
@@ -130,9 +183,12 @@ src/
 
 ## Customization
 
-### Changing the Admin Password
+### Changing the Admin Credentials
 
-Edit the `ADMIN_PASSWORD` constant in `src/app/admin/login/page.tsx`
+1. **Update the ADMIN_EMAIL environment variable:**
+   Set `ADMIN_EMAIL=your_admin_email@example.com` in your `.env.local` file
+
+2. **Create a new user in Supabase** with your desired email and password
 
 ### Styling
 
@@ -161,10 +217,13 @@ Make sure to set your environment variables in your deployment platform and ensu
 
 ## Security Notes
 
-- The current admin authentication is basic and suitable for personal use
-- For production use, consider implementing proper authentication with Supabase Auth
-- The service role key should never be exposed to the client side
-- Consider adding rate limiting for the RSVP form
+- **Supabase authentication** with secure session management
+- **HttpOnly cookies** for session storage (secure from XSS)
+- **Middleware protection** for admin routes
+- **No registration system** - single admin user only
+- **Server-side validation** for all authentication
+- **Environment variable protection** for Supabase keys
+- Consider adding rate limiting for the RSVP form in production
 
 ## Support
 
