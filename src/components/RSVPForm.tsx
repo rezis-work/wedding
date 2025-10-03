@@ -46,8 +46,8 @@ export default function RSVPForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-rose-200">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="max-w-md mx-auto bg-amber-50/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-amber-300">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-yellow-800 font-serif">
         ქორწილის RSVP
       </h2>
 
@@ -55,7 +55,7 @@ export default function RSVPForm() {
         <div>
           <label
             htmlFor="firstname"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-yellow-700 mb-1"
           >
             სახელი *
           </label>
@@ -67,7 +67,7 @@ export default function RSVPForm() {
             onChange={handleInputChange}
             required
             disabled={isPending}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-900 placeholder-gray-500"
+            className="w-full px-3 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-yellow-900 placeholder-yellow-400"
             placeholder="შეიყვანეთ თქვენი სახელი"
           />
         </div>
@@ -75,7 +75,7 @@ export default function RSVPForm() {
         <div>
           <label
             htmlFor="lastname"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-yellow-700 mb-1"
           >
             გვარი *
           </label>
@@ -87,7 +87,7 @@ export default function RSVPForm() {
             onChange={handleInputChange}
             required
             disabled={isPending}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-900 placeholder-gray-500"
+            className="w-full px-3 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed text-yellow-900 placeholder-yellow-400"
             placeholder="შეიყვანეთ თქვენი გვარი"
           />
         </div>
@@ -95,7 +95,7 @@ export default function RSVPForm() {
         <div>
           <label
             htmlFor="are_you_coming"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-yellow-700 mb-2"
           >
             მოვალ ქორწილში? *
           </label>
@@ -113,9 +113,9 @@ export default function RSVPForm() {
                   }))
                 }
                 disabled={isPending}
-                className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300 disabled:cursor-not-allowed"
+                className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-yellow-300 disabled:cursor-not-allowed"
               />
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-yellow-700">
                 კი, მოვალ
               </span>
             </label>
@@ -132,9 +132,9 @@ export default function RSVPForm() {
                   }))
                 }
                 disabled={isPending}
-                className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300 disabled:cursor-not-allowed"
+                className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-yellow-300 disabled:cursor-not-allowed"
               />
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-yellow-700">
                 არა, ვერ მოვალ
               </span>
             </label>
@@ -146,7 +146,7 @@ export default function RSVPForm() {
           disabled={
             isPending || !formData.firstname.trim() || !formData.lastname.trim()
           }
-          className="w-full bg-gradient-to-r from-rose-600 to-purple-600 text-white py-3 px-6 rounded-xl hover:from-rose-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
+          className="w-full bg-gradient-to-r from-yellow-600 to-amber-600 text-white py-3 px-6 rounded-xl hover:from-yellow-700 hover:to-amber-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-lg font-semibold"
         >
           {isPending ? "გაიგზავნება..." : "RSVP გაგზავნა"}
         </button>

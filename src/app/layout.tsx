@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfair = Playfair_Display({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "ნუკი & ლევანის ქორწილი - RSVP",
-  description: "RSVP ნუკი და ლევანის ქორწილზე - 23 ოქტომბერი, 2024",
+  description:
+    "RSVP ნუკი და ლევანის ქორწილზე - 23 ოქტომბერი, 2025, გთხოვთ შეავსოთ ფორმა ქვემოთ",
   icons: {
     icon: "/rings.png",
   },
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${cormorant.variable} ${playfair.variable} antialiased`}
       >
         {children}
       </body>
