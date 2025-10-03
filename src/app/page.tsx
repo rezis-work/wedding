@@ -115,23 +115,23 @@ export default function Home() {
           {/* RSVP Notice */}
           <div className="bg-red-50 border-2 border-red-400 rounded-2xl p-6 mb-8 max-w-4xl mx-auto">
             <p className="text-lg md:text-xl font-bold text-red-600 text-center">
-              გთხოვთ არაუგვიანეს 12 ოქტომბრისა გვაცნობოთ, ქვემოთ აღნიშნული
-              ფორმის საშუალებით დასწრების ან არ დასწრების შესახებ
+              გთხოვთ არაუგვიანეს <span className="text-5xl">12</span> ოქტომბრისა
+              გვაცნობოთ, ქვემოთ აღნიშნული ფორმის საშუალებით დასწრების ან არ
+              დასწრების შესახებ
             </p>
-          </div>
-
-          <div className="mt-8 animate-bounce">
-            <svg
-              className="w-8 h-8 mx-auto text-yellow-600"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
+            <div className="mt-8 animate-bounce">
+              <svg
+                className="w-8 h-8 mx-auto text-yellow-600"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
           </div>
 
           {/* RSVP Form */}
