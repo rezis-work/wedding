@@ -17,7 +17,7 @@ export default function Home() {
             </div>
 
             <p className="text-xl md:text-5xl text-yellow-700 font-bold">
-              23 ოქტომბერი, 2025
+              <span className="text-7xl">23</span> ოქტომბერი, 2025
             </p>
           </div>
 
@@ -49,6 +49,47 @@ export default function Home() {
                 <p className="text-2xl md:text-3xl font-bold text-yellow-800 mt-2">
                   ნუკი&ლევანი
                 </p>
+                <div className="flex justify-center">
+                  <div className="mt-8 animate-bounce">
+                    <svg
+                      className="w-8 h-8 mx-auto text-yellow-600"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                  </div>
+                  <div className="mt-8 animate-bounce">
+                    <svg
+                      className="w-8 h-8 mx-auto text-yellow-600"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                  </div>
+                  <div className="mt-8 animate-bounce">
+                    <svg
+                      className="w-8 h-8 mx-auto text-yellow-600"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
