@@ -1,17 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-// Dynamically import the map component to avoid SSR issues
-const LocationMap = dynamic(() => import("@/components/LocationMap"), {
-  ssr: false,
-});
-
 export default function EventDetailsWithMap() {
-  // Coordinates for locations in Tbilisi (from Google Maps links)
-  const churchLocation = { lat: 41.71716, lng: 44.76384 }; // ესაროს ეკლესია
-  const restaurantLocation = { lat: 41.69384, lng: 44.83596 }; // ლისი მერე რესტორანი
-
   return (
     <div className="bg-amber-100/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 md:p-10 mb-12 max-w-5xl mx-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-center text-yellow-700 mb-8 font-serif">
@@ -25,12 +14,15 @@ export default function EventDetailsWithMap() {
             <h3 className="text-xl font-semibold text-yellow-800 mb-2">
               ჯვრისწერა 14:00
             </h3>
-            <p className="text-base text-yellow-700 mb-1">
-              ყოველთა წმინდათა ტაძარი
-            </p>
-            <p className="text-base text-yellow-800 font-bold">
-              კიბალჩიჩის აღმართი
-            </p>
+            <a
+              href="https://maps.app.goo.gl/H99CcK7C1u2TurUYA?g_st=aw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base text-yellow-700 hover:text-yellow-900 underline decoration-yellow-500 hover:decoration-yellow-700 transition-colors"
+            >
+              ჩუღურეთის ყველათწმინდა, მისამართი: ელენე ახვლედიანის აღმართი N6ა
+              (ყოფილი კიბალჩიჩის აღმართი)
+            </a>
           </div>
         </div>
 
@@ -40,34 +32,19 @@ export default function EventDetailsWithMap() {
             <h3 className="text-xl font-semibold text-yellow-800 mb-2">
               რესტორანი 17:00
             </h3>
-            <p className="text-base text-yellow-700 mb-1">ლისი მერე</p>
-            <p className="text-base text-yellow-700">(მწვანე დარბაზი)</p>
-            <p className="text-sm text-yellow-600 mt-2">ლისის ტბა, თბილისი</p>
+            <a
+              href="https://maps.app.goo.gl/Tz8JAWCxCZPBDrB87?g_st=aw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base text-yellow-700 hover:text-yellow-900 underline decoration-yellow-500 hover:decoration-yellow-700 transition-colors block"
+            >
+              რესტორანი ლისი მერე
+            </a>
+            <p className="text-base text-yellow-700 mt-2">(მწვანე დარბაზი)</p>
           </div>
         </div>
       </div>
 
-      {/* Map */}
-      <div className="bg-white rounded-xl p-4 shadow-md">
-        <LocationMap
-          center={[
-            (churchLocation.lat + restaurantLocation.lat) / 2,
-            (churchLocation.lng + restaurantLocation.lng) / 2,
-          ]}
-          markers={[
-            {
-              position: [churchLocation.lat, churchLocation.lng],
-              title: "ჯვრისწერა - 14:00",
-              description: "ყოველთა წმინდათა ტაძარი, კიბალჩიჩის აღმართი",
-            },
-            {
-              position: [restaurantLocation.lat, restaurantLocation.lng],
-              title: "რესტორანი - 17:00",
-              description: "ლისი მერე (მწვანე დარბაზი), ლისის ტბა",
-            },
-          ]}
-        />
-      </div>
       <div className="flex justify-center">
         <div className="mt-8 animate-bounce">
           <svg
